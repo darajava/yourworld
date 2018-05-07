@@ -1,0 +1,29 @@
+.wrapper {
+  padding: 5vw;
+  min-height: 100vh;
+  background-size: contain;
+}
+
+.wrapper.bar {
+  background-image: url(/bar.jpg);
+}
+
+.story, .answer, .hints {
+  font-size: 20px;
+  white-space: pre-wrap;
+}
+
+
+
+.title {
+  font-size: 42px;
+  box-shadow: 0px 7px 12px -10px pink;
+  padding-bottom: 12px;
+  border-bottom: 1px solid pink;
+  margin: -2vw;
+  padding: 2vw;
+  padding-top: 4vw;
+  padding-bottom: 4vw;
+  font-weight: bold;
+}
+

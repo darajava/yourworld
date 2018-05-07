@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Bebas Neue'), url('/bebas.ttf') format('truetype');
+}
+
+body {
+  margin: 0;
+  font-size: 30px;
+  font-family: 'Forum', sans-serif;
+  margin: auto;
+  overflow-x: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.cesium-widget {
+  width: 100vw !important;
+  height: 100vh !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: pink;
+  padding-bottom: 100px;
+}

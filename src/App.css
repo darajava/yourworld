@@ -1,0 +1,9 @@
+.cesium-widget {
+  width: 100vw !important;
+  height: 100vh !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: pink;
+  padding-bottom: 100px;
+}

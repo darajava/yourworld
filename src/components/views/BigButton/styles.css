@@ -1,0 +1,86 @@
+.button {
+	text-decoration: none;
+	width: 90vw;
+	margin: 5vw;
+	margin-bottom: calc(5vw + 10px);
+	padding: calc(5vw + 10px);
+	border: 1px solid #ddd;
+	border-radius: 7px;
+	background-color: white;
+
+	max-width: 500px;
+	box-shadow: 0px 3px 18px -6px rgba(135, 135, 135, 0.58);
+	position: relative;
+
+}
+
+.button.locked {
+	background-color: #efefef;
+	border: 0;
+	box-shadow: none;
+
+}
+
+.locked .text, .locked .soustitle {
+	color: lightgrey;
+}
+
+.button:hover {
+	background-color: #fbfbfb;
+}
+
+.button:active {
+	background-color: #fbf9f9;
+}
+
+
+.button.locked:hover {
+	background-color: #eaeaea;
+}
+
+.button.locked:active {
+	background-color: #fbf9f9;
+}
+
+.soustitle {
+	color: #888;
+}
+
+.text {
+	color: #333;
+	font-size: 8vh;
+}
+
+.locked-icon {
+	position: absolute;
+
+	border-radius: 100%;
+	background-color: rgba(255, 255, 255, 0.4);
+	z-index: 100;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+	color: #555;
+	text-align: center;
+
+
+
+			font-size: 38px;
+		width: 110px;
+	height: 110px;
+	line-height: 110px;
+}
+
+
+@media only screen and (min-width : 768px) {
+	.locked-icon {
+	line-height: 160px;
+	font-size: 58px;
+		width: 160px;
+	height: 160px;
+	}
+}
