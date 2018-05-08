@@ -36,6 +36,12 @@ class App extends Component {
       geometryInstances : instances,
       appearance : new Cesium.PerInstanceColorAppearance()
     });
+
+
+    // setTimeout(() => {
+    //   this.whiteGlobe._renderState.blending.equationRgb = 1000;
+    // }, 3000);
+
   }
 
   addWhiteSphere() {
@@ -56,6 +62,75 @@ class App extends Component {
     }
   }
 
+  // WORKS but refactor
+getPositionFromGlobe() {
+    let viewer = this.viewer;
+    let scene = this.viewer.scene;
+
+    let ellipsoid = scene.globe.ellipsoid;
+
+    let cartographic;
+    let longitudeString;
+    let latitudeString;
+    let heightString;
+
+    let lastCoords = [];
+    let theseCoords = [];
+
+    let handler = new Cesium.ScreenSpaceEventHandler(scene.canvas),
+        onEarthClick = (e) => {
+            // if (e.which == 3) {//right button
+                console.log(parseFloat(longitudeString));
+                console.log(parseFloat(latitudeString));
+                if (theseCoords.length)
+                  lastCoords = [theseCoords[0], theseCoords[1]];
+                theseCoords = [parseFloat(longitudeString), parseFloat(latitudeString)];
+                console.log(lastCoords);
+                console.log([lastCoords[0], lastCoords[1], theseCoords[0], theseCoords[1]]);
+                if (lastCoords.length && theseCoords.length) {
+                  console.log('hello>');
+                  this.viewer.entities.add({
+                      name : 'Red line on the surface',
+                      polyline : {
+                          positions : Cesium.Cartesian3.fromDegreesArray([lastCoords[0], lastCoords[1], theseCoords[0], theseCoords[1]]),
+                          width : 2,
+                          material : Cesium.Color.BLACK
+                      }
+                  });
+                }
+
+            // }
+        };
+
+    handler.setInputAction(function (movement) {
+        let cartesian = viewer.camera.pickEllipsoid(movement.endPosition, ellipsoid);
+        if (cartesian) {
+            cartographic = ellipsoid.cartesianToCartographic(cartesian);
+            longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(15);
+            latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(15);
+            heightString = Cesium.Math.toDegrees(cartographic.height).toFixed(15);
+        }
+    }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+
+    this.flag = false;
+    let element = document.body;
+    element.addEventListener("pointerdown", () => {
+        this.flag = false;
+    });
+    element.addEventListener("pointermove", () => {
+        this.flag = true;
+    });
+    element.addEventListener("pointerup", (e) => {
+        if(!this.flag){
+            onEarthClick(e);
+        }
+        else{
+            console.log("drag");
+        }
+    });
+
+}
+
   addZoomListener() {
     let scene = this.viewer.scene;
 
@@ -69,7 +144,7 @@ class App extends Component {
             console.log(lastHeight);
             lastHeight = parseInt(height);
             console.log(lastHeight);
-            if (lastHeight < 600000) {
+            if (lastHeight < 800000) {
               scene.primitives.remove(this.whiteGlobe);
               this.createWhiteGlobe();
             } else {
@@ -89,6 +164,8 @@ class App extends Component {
     this.addWhiteSphere();
 
     this.addZoomListener();
+
+    this.getPositionFromGlobe();
 
     let classNames = [
       'cesium-viewer-timelineContainer',
